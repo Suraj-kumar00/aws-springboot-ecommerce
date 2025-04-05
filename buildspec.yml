@@ -3,17 +3,21 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      java: corretto11
+      java: corretto17
     commands:
       - echo Installing Maven...
+      - yum update -y
       - yum install -y maven
   build:
     commands:
       - echo Build started on `date`
       - mvn clean install
+  post_build:
+    commands:
+      - echo Build completed on `date`
 artifacts:
   files:
-    - target/aws-springboot-ecommerce-0.0.1-SNAPSHOT.jar
+    - target/Shopping_Cart-0.0.1-SNAPSHOT.jar
     - Procfile
     - .ebextensions/**/*
   discard-paths: no
