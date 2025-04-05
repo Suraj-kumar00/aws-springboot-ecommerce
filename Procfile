@@ -1,1 +1,1 @@
-web: java -jar target/aws-springboot-ecommerce-0.0.1-SNAPSHOT.jar 
+web: java -jar target/Shopping_Cart-0.0.1-SNAPSHOT.jar 
