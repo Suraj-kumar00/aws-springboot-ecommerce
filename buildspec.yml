@@ -12,6 +12,7 @@ phases:
       - echo Build complete.
 artifacts:
   files:
-    - dist/Shopping_Cart-0.0.1-SNAPSHOT.jar
+    - target/aws-springboot-ecommerce-0.0.1-SNAPSHOT.jar
     - Procfile
-  discard-paths: yes
+    - .ebextensions/**/*
+  discard-paths: no
