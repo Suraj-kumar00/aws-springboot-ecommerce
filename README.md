@@ -1,1 +1,1 @@
-# aws-springboot-ecommerce
+# AWS Spring Boot E-Commerce Application Deployment using Jenkins CI/CD pipeline on AWS EKS
