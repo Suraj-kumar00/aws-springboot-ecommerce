@@ -1,5 +1,8 @@
 version: 0.2
 phases:
+  install:
+    runtime-versions:
+      java: corretto17
   build:
     commands:
       - echo Packaging JAR file...
@@ -9,5 +12,6 @@ phases:
       - echo Build complete.
 artifacts:
   files:
-    - target/Shopping_Cart-0.0.1-SNAPSHOT.jar
+    - dist/Shopping_Cart-0.0.1-SNAPSHOT.jar
+    - Procfile
   discard-paths: yes
