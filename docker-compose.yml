@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  # MySQL Database Service
+  mysql:
+    image: mysql:8.0
+    container_name: ecommerce-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: ecommerce_db
+      MYSQL_USER: springuser
+      MYSQL_PASSWORD: springpass
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - ecommerce-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Spring Boot Application Service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ecommerce-app
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/ecommerce_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=springuser
+      - SPRING_DATASOURCE_PASSWORD=springpass
+      - SPRING_MAIL_USERNAME=dummymail@gmail.com
+      - SPRING_MAIL_PASSWORD=abcdabcdabcdabcd
+    ports:
+      - "8080:8080"
+    networks:
+      - ecommerce-network
+
+networks:
+  ecommerce-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
